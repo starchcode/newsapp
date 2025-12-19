@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
+  # Keywords routes (authenticated users only)
+  resources :keywords, only: [:index, :create, :destroy]
+
   # Defines the root path route ("/")
   root "welcome#index"
 end

@@ -10,10 +10,24 @@ class ApplicationController < ActionController::Base
   # Handle JSON requests
   respond_to :json
 
+  # CanCanCan authorization
+  include CanCan::ControllerAdditions
+
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: {
+      status: { code: 403, message: 'Access denied.' },
+      error: exception.message
+    }, status: :forbidden
+  end
+
   private
 
   def skip_browser_check_for_api
     # This method exists to allow skipping browser check via before_action
     # The actual skip happens because allow_browser runs after this
+  end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user)
   end
 end
