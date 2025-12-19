@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Keywords from './Keywords';
 
 interface ApiResponse {
   message: string;
@@ -77,10 +78,11 @@ export default function Welcome() {
       </nav>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
-          <div className="border-4 border-dashed border-gray-200 rounded-lg p-8 text-center">
+          <div className="border-4 border-dashed border-gray-200 rounded-lg p-8 text-center mb-6">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{data?.message}</h2>
             <p className="text-gray-600">You are successfully authenticated!</p>
           </div>
+          <Keywords />
         </div>
       </div>
     </div>
