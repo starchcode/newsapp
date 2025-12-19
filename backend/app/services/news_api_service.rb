@@ -9,13 +9,9 @@ class NewsApiService
   def fetch_articles_for_keywords(keywords, limit: 20)
     return [] if keywords.empty? || @api_key.blank?
 
-    # Combine all keywords into a query string
-    # NewsAPI supports OR queries, so we'll combine them
     query = keywords.map { |k| k.keyword }.join(' AND ')
     
     begin
-      # Fetch articles using the everything endpoint
-      # Sort by publishedAt to get recent articles
       response = @news.get_everything(
         q: query,
         sortBy: 'publishedAt',
@@ -23,8 +19,6 @@ class NewsApiService
         pageSize: limit
       )
       
-      # The gem returns a hash with 'articles' key containing article objects
-      # Convert article objects to hashes for JSON serialization
       articles = if response.is_a?(Hash)
         (response['articles'] || response[:articles] || []).map do |article|
           article_to_hash(article)
@@ -46,7 +40,6 @@ class NewsApiService
   private
 
   def article_to_hash(article)
-    # Convert article object to hash
     if article.respond_to?(:to_h)
       article.to_h
     elsif article.is_a?(Hash)
