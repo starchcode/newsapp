@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# Note: For Devise, it's easier to create users in test setup using User.create!
+# These fixtures are kept for reference but may not work with encrypted passwords
+# Consider creating users dynamically in test setup instead
+
+# one:
+#   email: user1@example.com
+#   encrypted_password: <will be set by Devise>
+
+# two:
+#   email: user2@example.com
+#   encrypted_password: <will be set by Devise>
+

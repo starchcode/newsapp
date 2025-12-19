@@ -72,3 +72,7 @@ group :test do
 end
 
 gem 'rack-cors'
+# Gemfile
+group :test do
+  gem "minitest-rails", "~> 8.1"
+end
