@@ -8,7 +8,11 @@ interface Keyword {
 
 type KeywordsResponse = Keyword[];
 
-export default function Keywords() {
+interface KeywordsProps {
+  onKeywordsChange?: () => void;
+}
+
+export default function Keywords({ onKeywordsChange }: KeywordsProps) {
   const [keywords, setKeywords] = useState<Keyword[]>([]);
   const [newKeyword, setNewKeyword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -72,6 +76,8 @@ export default function Keywords() {
 
       setNewKeyword('');
       await fetchKeywords(); // Refresh the list
+      // Notify parent to refresh articles
+      onKeywordsChange?.();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to add keyword');
     } finally {
@@ -96,10 +102,12 @@ export default function Keywords() {
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.status?.message || 'Failed to delete keyword');
-      }
+            throw new Error(data.status?.message || 'Failed to delete keyword');
+          }
 
-      await fetchKeywords(); // Refresh the list
+          await fetchKeywords(); // Refresh the list
+          // Notify parent to refresh articles
+          onKeywordsChange?.();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to delete keyword');
     }

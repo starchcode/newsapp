@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Keywords from './Keywords';
+import ArticlesList from './ArticlesList';
 
 interface ApiResponse {
   message: string;
@@ -11,8 +12,14 @@ export default function Welcome() {
   const [data, setData] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshArticles, setRefreshArticles] = useState(0);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+
+  const handleKeywordsChange = () => {
+    // Trigger articles refresh by updating the refresh counter
+    setRefreshArticles(prev => prev + 1);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -82,7 +89,8 @@ export default function Welcome() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{data?.message}</h2>
             <p className="text-gray-600">You are successfully authenticated!</p>
           </div>
-          <Keywords />
+          <Keywords onKeywordsChange={handleKeywordsChange} />
+          <ArticlesList refreshTrigger={refreshArticles} />
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Welcome from './components/Welcome';
+import ArticleDetail from './components/ArticleDetail';
 import './App.css';
 
 function App() {
@@ -18,6 +19,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Welcome />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/articles/:id"
+            element={
+              <ProtectedRoute>
+                <ArticleDetail />
               </ProtectedRoute>
             }
           />
