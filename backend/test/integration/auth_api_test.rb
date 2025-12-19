@@ -156,7 +156,7 @@ class AuthApiTest < ActionDispatch::IntegrationTest
 
     assert_response :ok
     json_response = JSON.parse(response.body)
-    assert_equal "welcome to backend", json_response["message"]
+    assert_equal "welcome to news app", json_response["message"]
   end
 
   def test_welcome_route_works_without_authentication

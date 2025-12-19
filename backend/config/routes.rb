@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   # Keywords routes (authenticated users only)
   resources :keywords, only: [:index, :create, :destroy]
 
+  # Articles routes (authenticated users only)
+  resources :articles, only: [:index]
+
   # Defines the root path route ("/")
   root "welcome#index"
 end
