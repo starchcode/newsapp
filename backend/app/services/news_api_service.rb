@@ -11,7 +11,7 @@ class NewsApiService
 
     # Combine all keywords into a query string
     # NewsAPI supports OR queries, so we'll combine them
-    query = keywords.map { |k| k.keyword }.join(' OR ')
+    query = keywords.map { |k| k.keyword }.join(' AND ')
     
     begin
       # Fetch articles using the everything endpoint

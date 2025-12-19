@@ -212,7 +212,7 @@ class NewsApiServiceTest < ActiveSupport::TestCase
     assert_equal [], result
     # Verify it was called with keyword arguments
     assert mock_news.called_params[:kwargs].key?(:q), "Should be called with q parameter"
-    assert_equal 'technology OR AI', mock_news.called_params[:kwargs][:q]
+    assert_equal 'technology AND AI', mock_news.called_params[:kwargs][:q]
   end
 end
 
