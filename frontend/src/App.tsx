@@ -1,20 +1,24 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 
+interface ApiResponse {
+  message: string;
+}
+
 function App() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState<ApiResponse | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch('http://localhost:3000/');
-        const jsonData = await response.json();
+        const jsonData: ApiResponse = await response.json();
         setData(jsonData);
         setLoading(false);
       } catch (err) {
-        setError(err);
+        setError(err instanceof Error ? err : new Error('Unknown error'));
         setLoading(false);
       }
     }
@@ -28,9 +32,10 @@ function App() {
   return (
     <>
       <h1>Hello World</h1>
-      <p>{data.message}</p>
+      <p>{data?.message}</p>
     </>
   )
 }
 
 export default App
+
